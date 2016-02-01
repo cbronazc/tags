@@ -41,8 +41,7 @@ class Article(db.Model):
     subhead = db.Column(db.String(255))
     url = db.Column(db.String(255))
     photo = db.Column(db.String(255))
-    # tags = db.relationship('Tag', secondary=tags,
-    #     backref=db.backref('articles', lazy='dynamic'))
+
 
 def get_data():
     key_prefix='articles'
@@ -55,6 +54,7 @@ def get_data():
         data = json.loads(data.content)
         cache.set(key_prefix, data)
         return data
+
 
 def process_data():
     data = get_data()
@@ -71,7 +71,6 @@ def process_data():
 
             # create article
             if not Article.query.filter(Article.headline==headline).first():
-                # import pdb;pdb.set_trace();
                 db.session.add(Article(headline=headline, subhead=subhead, photo=photo, url=url))
             # create tags
             for word in keywords:
@@ -107,7 +106,6 @@ def index():
 def sub():
     name = request.form.get('name').strip()
     tag = Tag.query.filter(Tag.name==name).first()
-    # import pdb;pdb.set_trace();
     if tag:
         tag.subscribed = '0' if tag.subscribed == '1' else '1'
         db.session.add(tag)
