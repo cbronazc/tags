@@ -1,0 +1,43 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                {% for t in tags %}
+                    <li {% if t.subscribed == '1' %}class='active'{% endif %}>
+                        <a href="#" class="sub" data-name='{{t.name}}' >{{ t.name|truncate(30, True, end='...') }} {% if t.subscribed == '1' %}-{% else %}+{% endif %}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-2 col-lg-offset-8">
+                        <h2 style='color: #C25B56;'>azcentral</h2>
+                    </div>
+                    <div class="col-lg-12">
+                        {% for article in data %}
+                            <div style='background: #BEB9B5; margin: 10px 200px 20px 0px; padding: 10px;' class='row'>
+                                <div class="col-lg-2">
+                                    <a href="{{ article['url'] }}">
+                                        <img src="{{ article['photo'] }}" width=100 height=75 >
+                                    </a>
+                                </div>
+                                <div class="col-lg-8">
+                                    <b>{{ article['headline'] }}</b><br>
+                                    {{ article['subhead'] }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+{% endblock %}
