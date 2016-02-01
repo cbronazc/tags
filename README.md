@@ -7,6 +7,7 @@
 mysql -> create database tags;
 
 python manage.py db upgrade
+
 python tags.py
 
-visit localhost:5010
+http://localhost:5010
