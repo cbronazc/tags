@@ -97,6 +97,7 @@ def index():
         for article in sub.articles:
             if article not in data:
                 data.append(article)
+    data.sort(key=lambda x: x.id, reverse=True)
     tags = Tag.query.order_by(func.rand()).all()
     return render_template('index.html', data=data, tags=tags)
 
